@@ -1,6 +1,6 @@
 # Industrial Safety Vision
 
-[![CI](https://github.com/IlliaSator/industrial-safety-vision/actions/workflows/ci.yml/badge.svg)](https://github.com/IlliaSator/industrial-safety-vision/actions/workflows/ci.yml)
+[![CI](https://github.com/Dipanshur19/industrial-safety-vision-cv/actions/workflows/ci.yml/badge.svg)](https://github.com/Dipanshur19/industrial-safety-vision-cv/actions/workflows/ci.yml)
 
 Industrial Safety Vision is a production-style computer vision project for workplace safety monitoring. The goal is not just to run YOLO on a picture, but to show the engineering around a real CV system: dataset checks, training and evaluation entrypoints, structured detections, video inference, worker tracking, temporal alert smoothing, an API service, Docker, and benchmarking.
 
@@ -346,7 +346,7 @@ docker build --build-arg INSTALL_ML_DEPS=true -t industrial-safety-vision:ml .
 
 # Industrial Safety Vision (RU)
 
-[![CI](https://github.com/IlliaSator/industrial-safety-vision/actions/workflows/ci.yml/badge.svg)](https://github.com/IlliaSator/industrial-safety-vision/actions/workflows/ci.yml)
+[![CI](https://github.com/Dipanshur19/industrial-safety-vision-cv/actions/workflows/ci.yml/badge.svg)](https://github.com/Dipanshur19/industrial-safety-vision-cv/actions/workflows/ci.yml)
 
 Industrial Safety Vision - это production-style проект по Computer Vision для мониторинга промышленной безопасности. Идея проекта не в том, чтобы просто запустить YOLO на одной картинке, а в том, чтобы показать инженерную часть реальной CV-системы: проверку датасета, обучение и оценку модели, структурированные результаты инференса, обработку видео, трекинг работников, сглаживание алертов во времени, FastAPI-сервис, Docker и бенчмарки.
 
