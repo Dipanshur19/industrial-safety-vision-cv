@@ -56,4 +56,4 @@ class MetricsResponse(BaseModel):
     average_inference_latency_ms: float
     average_fps: float
     total_alerts_generated: int
-    mode: str = "real_model"
+    mode: str = Field(default="mock", description="Detector mode: 'mock' or 'real_model'")

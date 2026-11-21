@@ -107,6 +107,9 @@ def run_video_inference(
     safety_config_path: str | Path = "configs/safety_rules.yaml",
     enable_tracking: bool = True,
     enable_safety: bool = True,
+    summary_path: str | Path | None = None,
+    alerts_path: str | Path | None = None,
+    alerts_csv_path: str | Path | None = None,
 ) -> VideoInferenceSummary:
     """Run detection frame by frame on a video file or webcam index."""
 
@@ -172,21 +175,30 @@ def run_video_inference(
         writer.release()
 
     elapsed = max(time.perf_counter() - started, 1e-12)
-    summary_path = Path("data/outputs/video_summary.json")
-    alerts_path = Path("data/outputs/video_alerts.json")
-    alerts_csv_path = Path("data/outputs/video_alerts.csv")
+    out_p = Path(output_path)
+    output_dir = out_p.parent if str(out_p.parent) != "" else Path("data/outputs")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    summary_file = (
+        Path(summary_path) if summary_path else output_dir / f"{out_p.stem}_summary.json"
+    )
+    alerts_file = Path(alerts_path) if alerts_path else output_dir / f"{out_p.stem}_alerts.json"
+    alerts_csv_file = (
+        Path(alerts_csv_path) if alerts_csv_path else output_dir / f"{out_p.stem}_alerts.csv"
+    )
+
     alert_rows = [alert.to_dict() for alert in alerts]
-    write_json(alerts_path, alert_rows)
-    write_rows_csv(alerts_csv_path, alert_rows)
+    write_json(alerts_file, alert_rows)
+    write_rows_csv(alerts_csv_file, alert_rows)
     summary = VideoInferenceSummary(
         processed_frames=processed,
         average_latency_ms=sum(latencies_ms) / processed if processed else 0.0,
         fps=processed / elapsed if processed else 0.0,
         output_path=str(output_path),
-        alerts_path=str(alerts_path),
-        summary_path=str(summary_path),
+        alerts_path=str(alerts_file),
+        summary_path=str(summary_file),
         total_alerts=len(alerts),
         metadata={"frame_skip": frame_skip, "source_fps": source_fps},
     )
-    write_json(summary_path, summary.to_dict())
+    write_json(summary_file, summary.to_dict())
     return summary

@@ -2,7 +2,7 @@ dataset:
   data_yaml: data/processed/dataset.yaml
   project_dir: runs/train
 model:
-  checkpoint: yolov8n.pt
+  checkpoint: yolo11n.pt
   image_size: 640
 training:
   epochs: 50

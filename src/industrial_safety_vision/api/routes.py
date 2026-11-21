@@ -68,7 +68,14 @@ class InferenceService:
         return detections, latency_ms
 
     def predict_video_file(self, input_path: Path) -> dict[str, Any]:
-        summary = run_video_inference(input_path, "data/outputs/api_annotated_video.mp4")
+        output_dir = Path("data/outputs")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        summary = run_video_inference(
+            input_path,
+            output_dir / "api_annotated_video.mp4",
+            summary_path=output_dir / "api_video_summary.json",
+            alerts_path=output_dir / "api_video_alerts.json",
+        )
         self.processed_videos += 1
         self.video_fps_values.append(summary.fps)
         self.alerts.extend(_read_alerts(summary.alerts_path))
